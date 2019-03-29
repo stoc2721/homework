@@ -1,58 +1,59 @@
 class Node:
     def __init__(self,data):
         self.data = data
-        self.head = None
-
+        self.next = None
+        
 class linkedList:
     def __init__(self):
         self.head=None
-
     def append(self,data):
-        newNode=Node(data)
-        if self.head==None:
-            self.head=newNode
-            return
-        else:
-            lastNode = self.head
-            while lastNode.next != None:
-                lastNode = lastNode.next
-                lastNode.next=newNode
-
-    def prepend(self,data):
-        newNode=Node(data)
+        temp = Node(data)
         if self.head == None:
-            self.head=newNode
+            self.head = temp
             return
         else:
-            newNode.next=self.head
-            self.head=newNode
-
-    def insertAfterNode(self, prevNode, data):
-        newNode=Node(data)
-        newNode.next=prevNode.next
-        prevNode.next=newNode
-
+            last = self.head
+            while last.next != None:
+                last = last.next
+            last.next = temp
     def printList(self):
-        curNode = self.head
-        while curNode!=None:
-            print(curNode.data)
-            curNode=curNode.next
-    def deleteNode(self,key):
-        curNode=self.head
-        if curNode!= None and curNode.data==key:
-            self.head=curNode.next
-            curNode=None
-            return
+        current = self.head
+        while current != None:
+            print(current.data)
+            current = current.next
+    def prepend(self,data):
+        temp = Node(data)
+        if self.head == None:
+            self.head = temp
         else:
-            prev=None
-            while curNode != None and curNode.data != key:
-                prev=curNode
-                curNode=curNode.next
-            if curNode == None:
-                print('The data is not found in the list')
-                return
-            else:
-                prev.next=curNode.next
-                curNode=None
-
-
+            temp.next =self.head
+            self.head = temp
+    def insertAfterNode(self,prevNode,data):
+        temp = Node(data)
+        temp.next=prevNode.next
+        prevNode.next=temp
+    def delete(self,i):
+        temp = self.head
+        if temp.data == i:
+            self.head=temp.next
+            temp.next=None
+        else:
+            prev = None
+            while temp.data != i:
+                prev = temp
+                temp = temp.next
+            prev.next = temp.next
+            temp.next = None
+        
+        
+        
+lst = linkedList()
+lst.append(1)
+lst.append(2)
+lst.printList()
+lst.prepend(3)
+lst.printList()
+lst.insertAfterNode(lst.head.next.next,4)
+lst.printList()
+lst.delete(2)
+lst.printList()
